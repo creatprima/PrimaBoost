@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PrimaBoost</title>
+<style>
+:root{--bg:#f6f4ff;--card:#fff;--tx:#1d1740;--mu:#6b6590;--ac:#7c3aed;--ac2:#ec4899;--bd:#e4def8;--ok:#16a34a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#110d24;--card:#1b1535;--tx:#f1eeff;--mu:#a49dcc;--bd:#322a5c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#110d24;--card:#1b1535;--tx:#f1eeff;--mu:#a49dcc;--bd:#322a5c;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:60}
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.35;z-index:0;animation:fl 14s ease-in-out infinite alternate;pointer-events:none}
+.b1{width:380px;height:380px;background:var(--ac);top:-100px;left:-100px}.b2{width:320px;height:320px;background:var(--ac2);bottom:-80px;right:-80px;animation-delay:-5s}
+@keyframes fl{to{transform:translate(60px,80px) scale(1.2)}}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;display:flex;gap:10px;align-items:center;padding:12px 18px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:22px;cursor:pointer;margin-right:auto}.logo svg{filter:drop-shadow(0 0 6px rgba(99,102,241,.7));animation:pulse 2.2s ease-in-out infinite}.lt{background:linear-gradient(90deg,#3b82f6,#8b5cf6,#3b82f6);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 3s linear infinite}@keyframes sh{to{background-position:200% 0}}@keyframes pulse{50%{transform:scale(1.15) rotate(-6deg)}}
+nav{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+button,.btn{font:inherit;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:12px;transition:transform .15s,box-shadow .2s}
+button:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(124,58,237,.25)}
+.pri{background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff;border:0;font-weight:600}
+.dng{color:#dc2626}
+main{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:20px 16px 60px;animation:in .45s both}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+.wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;max-width:1320px;margin:0 auto;padding:0 16px}.wrap main{max-width:none;margin:0;padding:20px 0 60px}aside{position:sticky;top:calc(70px + env(safe-area-inset-top,0px));align-self:start;padding-top:20px;max-height:calc(100vh - 90px);overflow:auto}.side{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px}.side .card{margin:10px 0 0;padding:12px}@media(max-width:860px){.wrap{display:block;padding:0}.wrap main{padding:20px 16px 60px}aside{display:none}}
+.hero{text-align:center;padding:36px 10px 20px}
+.hero h1{font-size:clamp(30px,6vw,52px);margin:0 0 10px;line-height:1.1}
+.hero h1 span{background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mu);max-width:560px;margin:0 auto 18px}
+.emo{display:flex;justify-content:center;gap:14px;font-size:34px;margin-bottom:10px}
+.emo i{font-style:normal;animation:bob 2.4s ease-in-out infinite}.emo i:nth-child(2){animation-delay:.3s}.emo i:nth-child(3){animation-delay:.6s}.emo i:nth-child(4){animation-delay:.9s}.emo i:nth-child(5){animation-delay:1.2s}
+@keyframes bob{50%{transform:translateY(-12px) rotate(8deg)}}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0}
+.cat{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;text-align:center;cursor:pointer;transition:.25s}
+.cat:hover,.cat.on{transform:translateY(-5px) scale(1.03);border-color:var(--ac);box-shadow:0 10px 26px rgba(124,58,237,.25)}
+.cat b{display:block;font-size:30px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:12px;animation:in .4s both}
+.task{cursor:pointer;transition:.2s}.task:hover{border-color:var(--ac);transform:translateX(4px)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.tag{font-size:12px;padding:3px 10px;border-radius:99px;background:color-mix(in srgb,var(--ac) 15%,transparent);color:var(--ac)}
+.mu{color:var(--mu);font-size:14px}.empty{text-align:center;padding:40px 10px;color:var(--mu)}.empty b{font-size:54px;display:block;animation:bob 2.4s infinite}
+input,textarea,select{font:inherit;width:100%;padding:10px 12px;margin:5px 0 12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+label{font-size:14px;color:var(--mu)}
+.ov{position:fixed;inset:0;background:rgba(10,5,30,.6);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;animation:in .2s}
+.md{background:var(--card);border-radius:20px;padding:22px;max-width:440px;width:100%;max-height:90vh;overflow:auto;border:1px solid var(--bd)}
+.chat{display:flex;flex-direction:column;gap:8px;max-height:50vh;overflow-y:auto;padding:6px}
+.msg{max-width:78%;padding:8px 13px;border-radius:16px;background:var(--bd);animation:in .25s}.msg.me{align-self:flex-end;background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 18px;border-radius:99px;z-index:200;animation:in .3s}
+.st{color:#f59e0b;letter-spacing:2px}.adm{background:#dc2626;color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.warn{font-size:13px;background:color-mix(in srgb,#f59e0b 14%,transparent);padding:10px;border-radius:12px;margin-bottom:12px}
+</style></head><body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<header><div class="logo" onclick="location.hash='#/'"><svg width="30" height="30" viewBox="0 0 24 24"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"><animate attributeName="stop-color" values="#3b82f6;#8b5cf6;#3b82f6" dur="3s" repeatCount="indefinite"/></stop><stop offset="1" stop-color="#8b5cf6"><animate attributeName="stop-color" values="#8b5cf6;#3b82f6;#8b5cf6" dur="3s" repeatCount="indefinite"/></stop></linearGradient></defs><path d="M13 2 4 14h6l-1 8 9-12h-6z" fill="url(#lg)" stroke="url(#lg)" stroke-width="1" stroke-linejoin="round"/></svg><span class="lt">PrimaBoost</span></div><nav id="nav"></nav></header>
+<div class="wrap"><main id="app"></main><aside id="side"></aside></div><div id="layer"></div>
+<script>
+const CATS=[{id:'prank',n:'Онлайн-пакость',e:'😈'},{id:'help',n:'Онлайн помощь',e:'🛟'},{id:'answer',n:'Онлайн ответ',e:'💬'},{id:'live',n:'Очная сессия',e:'🎭'},{id:'livehelp',n:'Очная помощь',e:'🤝'}];
+const ADMIN_HASH='40c79553fd689389775faf0f1255ce5e2d0d1b36bbead54b822517a3d925f3b9';
+const mem={};const S={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+let db=JSON.parse(S.get('ph_db')||'null')||{users:[],tasks:[],resp:[],msgs:[],reviews:[]};
+let me=S.get('ph_me');let filter='';
+const save=()=>S.set('ph_db',JSON.stringify(db));
+const uid=()=>Math.random().toString(36).slice(2,10);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function sha256js(str){const b=[...new TextEncoder().encode(str)],l=b.length,rr=(x,n)=>(x>>>n)|(x<<(32-n));let H=[],K=[],p=0,c={};
+for(let n=2;p<64;n++){if(!c[n]){for(let i=n*n;i<400;i+=n)c[i]=1;if(p<8)H[p]=(Math.sqrt(n)%1*4294967296)|0;K[p++]=(Math.cbrt(n)%1*4294967296)|0}}
+b.push(128);while(b.length%64!==56)b.push(0);const hi=Math.floor(l*8/4294967296),lo=(l*8)>>>0;for(const v of [hi,lo])b.push(v>>>24&255,v>>>16&255,v>>>8&255,v&255);
+for(let i=0;i<b.length;i+=64){const w=[];for(let j=0;j<16;j++)w[j]=(b[i+4*j]<<24)|(b[i+4*j+1]<<16)|(b[i+4*j+2]<<8)|b[i+4*j+3];
+for(let j=16;j<64;j++){const x=w[j-15],y=w[j-2];w[j]=(w[j-16]+(rr(x,7)^rr(x,18)^(x>>>3))+w[j-7]+(rr(y,17)^rr(y,19)^(y>>>10)))|0}
+let [a,q,r,d,e,f,g,h]=H;
+for(let j=0;j<64;j++){const t1=(h+(rr(e,6)^rr(e,11)^rr(e,25))+((e&f)^(~e&g))+K[j]+w[j])|0,t2=((rr(a,2)^rr(a,13)^rr(a,22))+((a&q)^(a&r)^(q&r)))|0;h=g;g=f;f=e;e=(d+t1)|0;d=r;r=q;q=a;a=(t1+t2)|0}
+H=H.map((x,k)=>(x+[a,q,r,d,e,f,g,h][k])|0)}
+return H.map(x=>(x>>>0).toString(16).padStart(8,'0')).join('')}
+async function sha(s){try{if(!(window.crypto&&crypto.subtle))throw 0;const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return sha256js(s)}}
+const user=id=>db.users.find(u=>u.id===id);const cur=()=>user(me);
+if(!db.users.find(u=>u.email==='admin@admin.com')){db.users.push({id:'u_admin',email:'admin@admin.com',name:'Admin',hash:ADMIN_HASH,role:'admin',bio:'Администратор ПакостьХаба',created:Date.now()});save()}
+{const a=db.users.find(u=>u.email==='admin@admin.com');if(a&&(a.hash!==ADMIN_HASH||a.role!=='admin')){a.hash=ADMIN_HASH;a.role='admin';save()}}
+const cat=id=>CATS.find(c=>c.id===id)||CATS[0];
+const rating=id=>{const r=db.reviews.filter(x=>x.to===id);return r.length?{a:(r.reduce((s,x)=>s+x.s,0)/r.length).toFixed(1),n:r.length}:{a:'—',n:0}};
+const stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.append(d);setTimeout(()=>d.remove(),2600)}
+function modal(h){layer.innerHTML='<div class="ov" onclick="if(event.target===this)closeM()"><div class="md">'+h+'</div></div>'}
+const closeM=()=>layer.innerHTML='';
+function theme(t){document.documentElement.dataset.theme=t;S.set('ph_theme',t)}
+theme(S.get('ph_theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+function nav(){const u=cur();nav_.innerHTML=(u?`<button onclick="location.hash='#/chats'">💬 Чаты</button>${u.role==='admin'?`<button onclick="location.hash='#/users'">👥 Пользователи</button>`:''}<button class="pri" onclick="newTask()">＋ Задание</button><button onclick="location.hash='#/profile/${u.id}'">👤 ${esc(u.name)}</button><button onclick="logout()">Выйти</button>`:`<button onclick="authM('login')">Вход</button><button class="pri" onclick="authM('reg')">Регистрация</button>`)+`<button onclick="theme(document.documentElement.dataset.theme==='dark'?'light':'dark')" title="Тема">🌗</button>`}
+const nav_=document.getElementById('nav');
+function authM(mode){const r=mode==='reg';modal(`<h2>${r?'Регистрация':'Вход'}</h2><form data-f="${mode}">${r?'<label>Никнейм</label><input name="name" required maxlength="24">':''}<label>Почта</label><input name="email" type="email" required autocapitalize="none" autocorrect="off" autocomplete="username"><label>Пароль</label><input name="pw" type="password" required minlength="6"><button class="pri" style="width:100%">${r?'Создать аккаунт':'Войти'}</button></form><p class="mu" style="text-align:center;cursor:pointer" onclick="authM('${r?'login':'reg'}')">${r?'Уже есть аккаунт? Войти':'Нет аккаунта? Регистрация'}</p>`)}
+function logout(){me=null;S.set('ph_me','');nav();route()}
+function newTask(pre){if(!cur())return authM('login');modal(`<h2>Новое задание</h2><form data-f="task"><label>Отдел</label><select name="cat">${CATS.map(c=>`<option value="${c.id}" ${c.id===pre?'selected':''}>${c.e} ${c.n}</option>`).join('')}</select><label>Название</label><input name="title" required maxlength="80"><label>Цена (₽)</label><input name="price" type="number" min="0" required><label>Описание (по желанию)</label><textarea name="desc" rows="4" maxlength="800"></textarea><div class="warn">⚠️ Правила: без травли, угроз, порчи имущества, личных данных учителя и съёмки без разрешения.</div><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="ok" required style="width:auto;margin:0"> Согласен с правилами</label><br><button class="pri" style="width:100%">Опубликовать</button></form>`)}
+function respM(id){if(!cur())return authM('login');modal(`<h2>Откликнуться</h2><p class="mu">Заказчик оплатит только переводом на карту. Укажи номер карты для перевода.</p><form data-f="resp" data-id="${id}"><label>Номер карты</label><input name="card" inputmode="numeric" placeholder="0000 0000 0000 0000" required oninput="this.value=this.value.replace(/\\D/g,'').slice(0,19).replace(/(.{4})/g,'$1 ').trim()"><label>Сообщение заказчику</label><textarea name="m" rows="3" maxlength="400"></textarea><button class="pri" style="width:100%">Отправить отклик</button></form>`)}
+const luhn=n=>{let s=0,d=false;for(let i=n.length-1;i>=0;i--){let x=+n[i];if(d){x*=2;if(x>9)x-=9}s+=x;d=!d}return s%10===0};
+document.addEventListener('submit',async e=>{const f=e.target.dataset.f;if(!f)return;e.preventDefault();const d=Object.fromEntries(new FormData(e.target));
+if(f==='reg'){const em=d.email.toLowerCase().trim();if(db.users.find(u=>u.email===em))return toast('Почта уже занята');const u={id:uid(),email:em,name:d.name.trim(),hash:await sha(em+':'+d.pw),role:'user',bio:'',created:Date.now()};db.users.push(u);save();me=u.id;S.set('ph_me',me);closeM();nav();route();toast('Добро пожаловать!')}
+else if(f==='login'){const em=d.email.toLowerCase().trim(),h=await sha(em+':'+d.pw);const u=db.users.find(u=>u.email===em&&u.hash===h);if(!u)return toast('Неверная почта или пароль');me=u.id;S.set('ph_me',me);closeM();nav();route();toast('Привет, '+u.name)}
+else if(f==='task'){db.tasks.unshift({id:uid(),by:me,cat:d.cat,title:d.title,desc:d.desc,price:+d.price,status:'open',at:Date.now()});save();closeM();location.hash='#/';route();toast('Задание опубликовано')}
+else if(f==='resp'){const c=d.card.replace(/\D/g,'');if(c.length<16||!luhn(c))return toast('Проверь номер карты');const t=db.tasks.find(t=>t.id===e.target.dataset.id);if(db.resp.find(r=>r.task===t.id&&r.by===me))return toast('Ты уже откликался');const r={id:uid(),task:t.id,by:me,card:c,status:'new'};db.resp.push(r);if(d.m)db.msgs.push({id:uid(),chat:r.id,by:me,t:d.m,at:Date.now()});save();closeM();location.hash='#/chat/'+r.id;toast('Отклик отправлен')}
+else if(f==='msg'){if(!d.t.trim())return;db.msgs.push({id:uid(),chat:e.target.dataset.id,by:me,t:d.t,at:Date.now()});save();route();const c=document.querySelector('.chat');c&&(c.scrollTop=1e9)}
+else if(f==='rev'){db.reviews.push({id:uid(),to:e.target.dataset.id,by:me,s:+d.s,t:d.t,at:Date.now()});save();route();toast('Отзыв добавлен')}
+else if(f==='prof'){const u=cur();u.name=d.name;u.bio=d.bio;save();closeM();nav();route()}});
+function payOk(id){const r=db.resp.find(x=>x.id===id);r.status='paid';db.tasks.find(t=>t.id===r.task).status='done';save();route();toast('Отмечено как оплачено')}
+function delTask(id){db.tasks=db.tasks.filter(t=>t.id!==id);db.resp=db.resp.filter(r=>r.task!==id);save();location.hash='#/'}
+function editProf(){const u=cur();modal(`<h2>Профиль</h2><form data-f="prof"><label>Никнейм</label><input name="name" value="${esc(u.name)}" required><label>О себе</label><textarea name="bio" rows="3">${esc(u.bio)}</textarea><button class="pri" style="width:100%">Сохранить</button></form>`)}
+function taskCard(t){const u=user(t.by),c=cat(t.cat);return `<div class="card task" onclick="location.hash='#/task/${t.id}'"><div class="row"><b>${c.e} ${esc(t.title)}</b><b style="color:var(--ok)">${t.price} ₽</b></div><div class="mu">${esc(t.desc.slice(0,120))}</div><div class="row" style="margin-top:8px"><span class="tag">${c.n}</span><span class="mu">${esc(u?.name||'?')} · ${t.status==='open'?'открыто':'выполнено'}</span></div></div>`}
+function home(){const ts=db.tasks.filter(t=>!filter||t.cat===filter);return `<div class="hero"><div class="emo"><i>😈</i><i>🎒</i><i>🎭</i><i>📚</i><i>🤫</i></div><h1><span>Prima Boost</span></h1><p>Выбери отдел, публикуй задания, откликайся, общайся в чате и оставляй отзывы.</p><button class="pri" onclick="newTask()">＋ Опубликовать задание</button></div><div class="cats">${CATS.map(c=>`<div class="cat ${filter===c.id?'on':''}" onclick="location.hash='#/cat/${c.id}'"><b>${c.e}</b>${c.n}</div>`).join('')}</div>${ts.length?ts.map(taskCard).join(''):'<div class="empty"><b>🕳️</b>Заданий пока нет. Будь первым!</div>'}`}
+function taskV(id){const t=db.tasks.find(t=>t.id===id);if(!t)return '<div class="empty">Не найдено</div>';const u=user(t.by),c=cat(t.cat),mine=t.by===me,rs=db.resp.filter(r=>r.task===id);
+return `<div class="card"><div class="row"><h2 style="margin:0">${c.e} ${esc(t.title)}</h2><b style="color:var(--ok);font-size:22px">${t.price} ₽</b></div><span class="tag">${c.n}</span><p>${esc(t.desc)}</p><div class="row"><a href="#/profile/${t.by}" class="mu">Заказчик: ${esc(u?.name)} ★${rating(t.by).a}</a><span>${!mine&&t.status==='open'?`<button class="pri" onclick="respM('${id}')">Откликнуться</button>`:''}${mine||cur()?.role==='admin'?`<button class="dng" onclick="delTask('${id}')">Удалить</button>`:''}</span></div></div>
+${mine?`<h3>Отклики (${rs.length})</h3>${rs.map(r=>`<div class="card"><div class="row"><a href="#/profile/${r.by}"><b>${esc(user(r.by)?.name)}</b></a><span class="tag">${r.status==='paid'?'оплачено':'новый'}</span></div><div class="mu">Карта: <b style="color:var(--tx)">${r.card.replace(/(.{4})/g,'$1 ').trim()}</b> <button onclick="navigator.clipboard?.writeText('${r.card}');toast('Скопировано')">Копировать</button></div><div style="margin-top:8px"><button onclick="location.hash='#/chat/${r.id}'">💬 Чат</button> ${r.status!=='paid'?`<button class="pri" onclick="payOk('${r.id}')">Я перевёл оплату</button>`:''}</div></div>`).join('')||'<div class="empty">Пока никто не откликнулся</div>'}`:''}`}
+function chats(){if(!cur())return '<div class="empty">Войди, чтобы видеть чаты</div>';const l=db.resp.filter(r=>{const t=db.tasks.find(t=>t.id===r.task);return t&&(r.by===me||t.by===me)});return '<h2>💬 Чаты</h2>'+(l.map(r=>{const t=db.tasks.find(t=>t.id===r.task),o=user(r.by===me?t.by:r.by);return `<div class="card task" onclick="location.hash='#/chat/${r.id}'"><b>${esc(o?.name)}</b><div class="mu">${esc(t.title)}</div></div>`}).join('')||'<div class="empty"><b>💤</b>Чатов пока нет</div>')+supCard()}
+function chatV(id){if(id.startsWith('sup_'))return supV(id);const r=db.resp.find(x=>x.id===id),t=r&&db.tasks.find(t=>t.id===r.task);if(!t||!cur()||(r.by!==me&&t.by!==me))return '<div class="empty">Нет доступа</div>';const o=user(r.by===me?t.by:r.by);return `<div class="card"><div class="row"><b>💬 ${esc(o?.name)} · ${esc(t.title)}</b><button onclick="location.hash='#/chats'">←</button></div><div class="chat">${db.msgs.filter(m=>m.chat===id).map(m=>`<div class="msg ${m.by===me?'me':''}">${esc(m.t)}</div>`).join('')||'<div class="mu">Напиши первым</div>'}</div><form data-f="msg" data-id="${id}" class="row" style="margin-top:10px;flex-wrap:nowrap"><input name="t" placeholder="Сообщение…" autocomplete="off" style="margin:0"><button class="pri">➤</button></form></div>`}
+function prof(id){const u=user(id);if(!u)return '<div class="empty">Нет такого</div>';const R=rating(id),rv=db.reviews.filter(x=>x.to===id).reverse();return `<div class="card"><div class="row"><h2 style="margin:0">👤 ${esc(u.name)} ${u.role==='admin'?'<span class="tag adm">ADMIN</span>':u.role==='mod'?'<span class="tag" style="background:#2563eb;color:#fff">MOD</span>':''}</h2>${id===me?'<button onclick="editProf()">Изменить</button>':''}${cur()?.role==='admin'&&u.role!=='admin'?`<button class="pri" onclick="setRole('${id}')">${u.role==='mod'?'Снять модератора':'Назначить модератором'}</button>`:''}</div><p class="mu">${esc(u.bio||'Пока без описания')}</p><div class="st">${stars(Math.round(+R.a||0))} <span class="mu">${R.a} (${R.n})</span></div></div>
+${cur()&&id!==me?`<div class="card"><b>Оставить отзыв</b><form data-f="rev" data-id="${id}"><select name="s"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option><option value="2">★★</option><option value="1">★</option></select><textarea name="t" rows="2" required maxlength="300" placeholder="Как всё прошло?"></textarea><button class="pri">Отправить</button></form></div>`:''}
+<h3>Отзывы</h3>${rv.map(x=>`<div class="card"><span class="st">${stars(x.s)}</span> <b>${esc(user(x.by)?.name)}</b><div>${esc(x.t)}</div></div>`).join('')||'<div class="empty">Отзывов пока нет</div>'}`}
+const isMod=u=>u&&(u.role==='mod'||u.role==='admin');
+const side_=document.getElementById('side');
+function chatItem(r){const t=db.tasks.find(t=>t.id===r.task);if(!t)return '';const o=user(r.by===me?t.by:r.by);return `<div class="card task" onclick="location.hash='#/chat/${r.id}'"><b>${esc(o?.name)}</b><div class="mu">${esc(t.title)}</div></div>`}
+function supCard(){const u=cur();if(!u)return '';if(isMod(u)){const ids=[...new Set(db.msgs.filter(m=>m.chat.startsWith('sup_')).map(m=>m.chat))];return '<h4 class="mu" style="margin:14px 0 0">🛟 Обращения в поддержку</h4>'+(ids.map(c=>`<div class="card task" onclick="location.hash='#/chat/${c}'"><b>${esc(user(c.slice(4))?.name)}</b><div class="mu">${esc(db.msgs.filter(m=>m.chat===c).slice(-1)[0].t.slice(0,40))}</div></div>`).join('')||'<p class="mu">Обращений нет</p>')}return `<div class="card task" onclick="location.hash='#/chat/sup_${u.id}'"><b>🛟 Поддержка</b><div class="mu">Напиши модераторам</div></div>`}
+function side(){const u=cur();let h='<div class="side"><b>💬 Чаты</b>';if(!u)h+='<p class="mu">Войди, чтобы видеть чаты</p>';else{const l=db.resp.filter(r=>{const t=db.tasks.find(t=>t.id===r.task);return t&&(r.by===me||t.by===me)});h+=(l.map(chatItem).join('')||(isMod(u)?'':'<p class="mu">Чатов пока нет</p>'))+supCard()}side_.innerHTML=h+'</div>'}
+function supV(id){const u=cur(),ow=id.slice(4);if(!u||(ow!==me&&!isMod(u)))return '<div class="empty">Нет доступа</div>';return `<div class="card"><div class="row"><b>🛟 Поддержка · ${esc(user(ow)?.name)}</b><button onclick="location.hash='#/chats'">←</button></div><div class="chat">${db.msgs.filter(m=>m.chat===id).map(m=>`<div class="msg ${m.by===me?'me':''}">${m.by!==ow&&isMod(user(m.by))?'<small>🛡 '+esc(user(m.by).name)+'</small><br>':''}${esc(m.t)}</div>`).join('')||'<div class="mu">Опиши проблему — ответит модератор</div>'}</div><form data-f="msg" data-id="${id}" class="row" style="margin-top:10px;flex-wrap:nowrap"><input name="t" placeholder="Сообщение…" autocomplete="off" style="margin:0"><button class="pri">➤</button></form></div>`}
+function setRole(id){const u=user(id);if(cur()?.role!=='admin'||!u||u.role==='admin')return;u.role=u.role==='mod'?'user':'mod';save();route();toast(u.role==='mod'?u.name+' теперь модератор':'Модератор снят')}
+function usersV(){if(cur()?.role!=='admin')return '<div class="empty">Только для админа</div>';return '<h2>👥 Пользователи</h2>'+db.users.map(u=>`<div class="card"><div class="row"><a href="#/profile/${u.id}"><b>${esc(u.name)}</b></a><span class="tag">${u.role}</span></div><div class="mu">${esc(u.email)}</div>${u.role==='admin'?'':`<button class="pri" style="margin-top:8px" onclick="setRole('${u.id}')">${u.role==='mod'?'Снять модератора':'Назначить модератором'}</button>`}</div>`).join('')}
+function catV(id){const c=CATS.find(x=>x.id===id);if(!c)return home();const ts=db.tasks.filter(t=>t.cat===id);return `<div class="row"><button onclick="location.hash='#/'">← Все отделы</button><button class="pri" onclick="newTask('${id}')">＋ Задание в этот отдел</button></div><div class="hero" style="padding:20px 10px"><div style="font-size:56px">${c.e}</div><h1 style="font-size:clamp(26px,5vw,40px)"><span>${c.n}</span></h1></div>${ts.length?ts.map(taskCard).join(''):'<div class="empty"><b>🕳️</b>В этом отделе пока нет заданий</div>'}`}
+function route(){side();nav();const h=location.hash.slice(2).split('/');const v={'':home,task:()=>taskV(h[1]),chats,users:usersV,cat:()=>catV(h[1]),chat:()=>chatV(h[1]),profile:()=>prof(h[1])}[h[0]]||home;app.innerHTML=v();app.style.animation='none';app.offsetWidth;app.style.animation='';const c=document.querySelector('.chat');c&&(c.scrollTop=1e9)}
+const app=document.getElementById('app'),layer=document.getElementById('layer');
+addEventListener('hashchange',route);nav();route();
+</script></body></html>
